@@ -1,0 +1,6 @@
+require('./brand')
+require('./category')
+require('./product')
+require('./size')
+require('./sizeProduct')
+require('./user')
