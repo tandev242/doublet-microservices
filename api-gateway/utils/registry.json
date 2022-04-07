@@ -1,0 +1,116 @@
+{
+    "services": {
+        "auth": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "auth-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 10000,
+                    "url": "http://localhost:10000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "product": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "product-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 30000,
+                    "url": "http://localhost:30000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "category": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "product-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 30000,
+                    "url": "http://localhost:30000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "brand": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "product-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 30000,
+                    "url": "http://localhost:30000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "order": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "order-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 50000,
+                    "url": "http://localhost:50000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "cart": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "order-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 50000,
+                    "url": "http://localhost:50000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "user": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "user-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 40000,
+                    "url": "http://localhost:40000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "deliveryInfo": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "user-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 40000,
+                    "url": "http://localhost:40000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        }
+    }
+}

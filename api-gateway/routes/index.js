@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
-const registry = require('./registry.json')
-const fs = require('fs')
+const registry = require('../utils/registry.json')
 const loadBalancer = require('../utils/loadBalancer')
+const fs = require('fs')
 
 router.post('/enable/:apiName', (req, res) => {
     const apiName = req.params.apiName
@@ -42,6 +42,10 @@ router.post('/register', (req, res) => {
     }
 })
 
+router.post('/healthCheck', async (req, res) => {
+    res.send({ status: "OK", message: "API gateway is running !"})
+})
+
 router.post('/unregister', (req, res) => {
     const registrationInfo = req.body
 
@@ -59,6 +63,43 @@ router.post('/unregister', (req, res) => {
         })
     } else {
         res.send("Configuration does not exist for '" + registrationInfo.apiName + "' at '" + registrationInfo.url + "'")
+    }
+})
+
+router.all('/api/*', async (req, res) => {
+    const params = req.originalUrl.split('/').slice(1)
+    const service = registry.services[params[1]]
+    try {
+        if (service) {
+            if (!service.loadBalanceStrategy) {
+                service.loadBalanceStrategy = 'ROUND_ROBIN'
+                fs.writeFile('./routes/registry.json', JSON.stringify(registry), (error) => {
+                    if (error) {
+                        return res.send("Couldn't write load balance strategy" + error)
+                    }
+                })
+            }
+            const newIndex = loadBalancer[service.loadBalanceStrategy](service)
+            const url = service.instances[newIndex].url
+            const response = await axios({
+                method: req.method,
+                url: url + req.originalUrl,
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': req.headers.authorization || ''
+                },
+                data: req.body
+            })
+            if (response) {
+                res.status(response.status).json(response.data)
+            } else {
+                res.status(400).json({ error: "API doesn't exist" })
+            }
+        } else {
+            res.status(400).json({ error: "URL is invalid" })
+        }
+    } catch (error) {
+        res.status(400).json(error.response.data)
     }
 })
 
