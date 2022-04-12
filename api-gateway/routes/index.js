@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
-const registry = require('../utils/registry.json')
+const registry = require('../utils/registry.prod.json')
 const loadBalancer = require('../utils/loadBalancer')
 const fs = require('fs')
 
@@ -43,7 +43,7 @@ router.post('/register', (req, res) => {
 })
 
 router.post('/healthCheck', async (req, res) => {
-    res.send({ status: "OK", message: "API gateway is running !"})
+    res.send({ status: "OK", message: "API gateway is running !" })
 })
 
 router.post('/unregister', (req, res) => {
@@ -99,7 +99,10 @@ router.all('/api/*', async (req, res) => {
             res.status(400).json({ error: "URL is invalid" })
         }
     } catch (error) {
-        res.status(400).json(error.response.data)
+        if (error.response) {
+            return res.status(400).json(error.response.data)
+        }
+        res.status(400).json({ error })
     }
 })
 

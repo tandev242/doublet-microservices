@@ -1,19 +1,15 @@
-const express = require('express')
-const { requireSignin, adminMiddleware, userMiddleware, uploadCloud } = require('../middlewares')
-const { updateUser, getUsers, deleteUserById, updateUserInfo } = require('../controllers/user')
-const { validateUpdateUserInfoRequest, isRequestValidated } = require('../validators')
+const express = require('express');
+const { requireSignin, userMiddleware, adminMiddleware } = require('../middlewares');
+const { addOrder, getOrder, getOrders, updateStatus, getCustomerOrders, paymentWithMomo, addOrderByPaymentMomo } = require('../controllers/order');
 
+const router = express.Router();
 
-const router = express.Router()
+router.post('/add', requireSignin, userMiddleware, addOrder);
+router.post('/addOrderByPaymentMomo', addOrderByPaymentMomo);
+router.post('/getOrder', requireSignin, userMiddleware, getOrder);
+router.post('/getOrders', requireSignin, userMiddleware, getOrders);
+router.post('/updateType', requireSignin, updateStatus);
+router.post('/getCustomerOrders', requireSignin, adminMiddleware, getCustomerOrders);
+router.post('/paymentWithMomo', requireSignin, userMiddleware, paymentWithMomo);
 
-router.post('/getUsers', requireSignin, adminMiddleware, getUsers)
-router.post('/update', requireSignin, adminMiddleware, updateUser)
-router.post('/updateUserInfo', requireSignin,
-    userMiddleware,
-    validateUpdateUserInfoRequest,
-    isRequestValidated,
-    uploadCloud.single("profilePicture"),
-    updateUserInfo)
-router.post('/delete', requireSignin, adminMiddleware, deleteUserById)
-
-module.exports = router
+module.exports = router;

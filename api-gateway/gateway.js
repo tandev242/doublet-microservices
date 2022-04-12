@@ -1,12 +1,17 @@
 const express = require('express')
 const helmet = require('helmet')
+const cors = require("cors")
 const app = express()
-const registry = require('./utils/registry.json')
+
+// change .prod to .dev to test on local environment
+const registry = require('./utils/registry.prod.json')
 const routes = require('./routes')
+
 const PORT = process.env.PORT || 5000
 app.set('view engine', 'ejs')
 app.use(express.json())
 app.use(helmet())
+app.use(cors())
 
 const auth = (req, res, next) => {
     const url = req.protocol + '://' + req.hostname + PORT + req.path

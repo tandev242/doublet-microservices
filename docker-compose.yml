@@ -1,6 +1,43 @@
 version: '3'
 services:
-  redis-server:
+  redis:
     image: 'redis'
     ports:
       - '6379:6379'
+    networks:
+      - doublet-microservices
+  api-gateway:
+    image: doublet/api-gateway
+    ports:
+      - "5000:5000"
+    networks:
+      - doublet-microservices
+  auth-service:
+    image: doublet/auth-service
+    ports:
+      - "10000:10000"
+    networks:
+      - doublet-microservices
+    depends_on:
+      - redis
+  user-service:
+    image: doublet/user-service
+    ports:
+      - "40000:40000"
+    networks:
+      - doublet-microservices
+  product-service:
+    image: doublet/product-service
+    ports:
+      - "30000:30000"
+    networks:
+      - doublet-microservices
+  order-service:
+    image: doublet/order-service
+    ports:
+      - "50000:50000"
+    networks:
+      - doublet-microservices
+networks:
+  doublet-microservices:
+    driver: bridge

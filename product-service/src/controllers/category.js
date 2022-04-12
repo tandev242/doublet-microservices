@@ -58,7 +58,7 @@ exports.getCategories = (req, res) => {
             return res.status(400).json({ error })
         } else {
             const categoryList = createCategories(categories)
-            return res.status(200).json({ categoryList })
+            return res.status(200).json({ categories: categoryList })
         }
     })
 }
