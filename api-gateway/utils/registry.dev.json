@@ -111,6 +111,20 @@
                 }
             ],
             "loadBalanceStrategy": "ROUND_ROBIN"
+        },
+        "recom": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "recommendation-service",
+                    "protocol": "http",
+                    "host": "localhost",
+                    "port": 15000,
+                    "url": "http://localhost:15000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
         }
     }
 }

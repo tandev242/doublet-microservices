@@ -7,13 +7,13 @@ services:
     networks:
       - doublet-microservices
   api-gateway:
-    image: doublet/api-gateway
+    image: tandev2k/api-gateway
     ports:
       - "5000:5000"
     networks:
       - doublet-microservices
   auth-service:
-    image: doublet/auth-service
+    image: tandev2k/auth-service
     ports:
       - "10000:10000"
     networks:
@@ -21,21 +21,27 @@ services:
     depends_on:
       - redis
   user-service:
-    image: doublet/user-service
+    image: tandev2k/user-service
     ports:
       - "40000:40000"
     networks:
       - doublet-microservices
   product-service:
-    image: doublet/product-service
+    image: tandev2k/product-service
     ports:
       - "30000:30000"
     networks:
       - doublet-microservices
   order-service:
-    image: doublet/order-service
+    image: tandev2k/order-service
     ports:
       - "50000:50000"
+    networks:
+      - doublet-microservices
+  recommendation-service:
+    image: tandev2k/recommendation-service
+    ports:
+      - "15000:15000"
     networks:
       - doublet-microservices
 networks:

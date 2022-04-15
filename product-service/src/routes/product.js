@@ -5,6 +5,7 @@ const { addProduct, getProductsBySlug,
     updateProduct, updateQty, updateSizes,
     searchByProductName,
     updateDiscountPercent,
+    getListProductByIds,
     addProductReview } = require('../controllers/product')
 const { requireSignin, adminMiddleware, userMiddleware, uploadCloud } = require('../middlewares')
 const router = express.Router()
@@ -21,5 +22,6 @@ router.post('/updateQty', requireSignin, adminMiddleware, updateQty)
 router.post('/updateSizes', requireSignin, adminMiddleware, updateSizes)
 router.post('/updateDiscountPercent', requireSignin, adminMiddleware, updateDiscountPercent)
 router.post('/addProductReview', requireSignin, userMiddleware, addProductReview)
+router.post('/getListProductByIds', getListProductByIds)
 
 module.exports = router

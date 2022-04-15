@@ -4,7 +4,6 @@ const Brand = require("../models/brand")
 const shortid = require("shortid")
 const slugify = require("slugify")
 
-
 exports.addProduct = (req, res) => {
     const { name, price, description, category, brand, discountPercent } = req.body
     const sizes = JSON.parse(req.body.sizes)
@@ -326,6 +325,20 @@ exports.addProductReview = (req, res) => {
             res.status(202).json({ message: "update successfully" })
         } else {
             res.status(400).json({ error: "something went wrong" })
+        }
+    })
+}
+
+exports.getListProductByIds = (req, res) => {
+    const { ids } = req.body
+    Product.find({
+        '_id': { $in: ids }
+    }).exec((error, products) => {
+        if (error) return res.status(400).json({ error })
+        if (products) {
+            res.status(200).json({ products })
+        } else {
+            res.status(400).json({ error: "Not found !" })
         }
     })
 }
