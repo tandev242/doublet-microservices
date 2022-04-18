@@ -5,19 +5,25 @@ services:
     ports:
       - '6379:6379'
     networks:
-      - doublet-microservices
+      - doublet-network
   api-gateway:
     image: tandev2k/api-gateway
     ports:
-      - "5000:5000"
+      - "80:5000"
+    deploy:
+      mode: replicated
+      replicas: 2
     networks:
-      - doublet-microservices
+      - doublet-network
   auth-service:
     image: tandev2k/auth-service
     ports:
       - "10000:10000"
+    deploy:
+      mode: replicated
+      replicas: 2
     networks:
-      - doublet-microservices
+      - doublet-network
     depends_on:
       - redis
   user-service:
@@ -25,25 +31,32 @@ services:
     ports:
       - "40000:40000"
     networks:
-      - doublet-microservices
+      - doublet-network
   product-service:
     image: tandev2k/product-service
     ports:
       - "30000:30000"
+    deploy:
+      mode: replicated
+      replicas: 2
     networks:
-      - doublet-microservices
+      - doublet-network
   order-service:
     image: tandev2k/order-service
     ports:
       - "50000:50000"
     networks:
-      - doublet-microservices
+      - doublet-network
   recommendation-service:
     image: tandev2k/recommendation-service
     ports:
       - "15000:15000"
+    deploy:
+      mode: replicated
+      replicas: 2
     networks:
-      - doublet-microservices
+      - doublet-network
 networks:
-  doublet-microservices:
-    driver: bridge
+  doublet-network:
+    external: 
+      name: doublet-network
