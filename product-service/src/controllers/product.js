@@ -114,7 +114,7 @@ exports.getProductsBySlug = (req, res) => {
                 path: 'sizes', populate: {
                     path: "size", select: "_id size description"
                 }
-            })
+            }).limit(100)
             .exec((error, products) => {
                 if (error) return res.status(400).json({ error })
                 if (products) {
@@ -146,7 +146,7 @@ exports.getProductsBySlug = (req, res) => {
                                 path: 'sizes', populate: {
                                     path: "size", select: "_id size description"
                                 }
-                            })
+                            }).limit(100)
                             .exec((error, products) => {
                                 if (error) return res.status(400).json({ error })
                                 if (products) {
@@ -174,6 +174,7 @@ exports.getProductsBySlug = (req, res) => {
                             path: "size", select: "_id size description"
                         }
                     })
+                    .limit(100)
                     .exec((error, products) => {
                         if (error) return res.status(400).json({ error })
                         if (products) {
@@ -280,7 +281,7 @@ exports.getProducts = async (req, res) => {
                 path: 'reviews', populate: {
                     path: "user", select: "_id name profilePicture"
                 }
-            })
+            }).limit(100)
             .exec()
 
         if (products) {

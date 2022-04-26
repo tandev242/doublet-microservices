@@ -56,6 +56,20 @@
             ],
             "loadBalanceStrategy": "ROUND_ROBIN"
         },
+        "size": {
+            "index": 0,
+            "instances": [
+                {
+                    "apiName": "product-service",
+                    "protocol": "http",
+                    "host": "product-service",
+                    "port": 30000,
+                    "url": "http://product-service:30000",
+                    "enabled": true
+                }
+            ],
+            "loadBalanceStrategy": "ROUND_ROBIN"
+        },
         "order": {
             "index": 0,
             "instances": [
