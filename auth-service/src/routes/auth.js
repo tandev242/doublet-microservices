@@ -9,12 +9,12 @@ const router = express.Router()
 
 router.post('/signup', validateSignupRequest, isRequestValidated, signup)
 router.post('/signin',validateSigninRequest, isRequestValidated, signin)
-router.post('/v1/auth/google', signinWithGoogle)
+router.post('/signin/google', signinWithGoogle)
 router.post('/signout', requireSignin, signout)
 router.post('/verifyOtp', verifyOtp)
 router.post('/sendOtpToEmail', sendOtpToEmail)
 router.post('/updateForgetPassword', validateForgotPasswordRequest, updateForgetPassword)
 router.post('/refreshToken', refreshToken)
-
+router.post('/isUserLoggedIn', requireSignin, isUserLoggedIn)
 
 module.exports = router

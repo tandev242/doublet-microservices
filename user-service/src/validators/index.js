@@ -4,13 +4,13 @@ exports.validateUpdateUserInfoRequest = [
     check('name')
         .notEmpty()
         .withMessage('Name is required'),
-    check('password')
-        .isLength({ min: 6 })
-        .withMessage('Password must be at least 6 character long'),
-    check('otp')
-        .isNumeric()
-        .isLength({ min: 6 })
-        .withMessage('Otp must be 6 numbers'),
+    // check('password')
+    //     .isLength({ min: 6 })
+    //     .withMessage('Password must be at least 6 character long'),
+    // check('otp')
+    //     .isNumeric()
+    //     .isLength({ min: 6 })
+    //     .withMessage('Otp must be 6 numbers'),
 ]
 
 exports.validateAddDeliveryInfoRequest = [

@@ -45,11 +45,11 @@ exports.signin = async (req, res) => {
         if (existingUser) {
             const isPasswordMatch = await existingUser.authenticate(req.body.password)
             if (isPasswordMatch) {
-                const { _id, name, email, role } = existingUser
+                const { _id, name, email, profilePicture, role } = existingUser
                 const accessToken = await generateAccessToken({ _id, email, role })
                 const refreshToken = await generateRefreshToken({ _id, email, role })
                 // response token and user info
-                res.status(200).json({ accessToken, refreshToken, user: { _id, name, email, role } })
+                res.status(200).json({ accessToken, refreshToken, user: { _id, name, email, profilePicture, role } })
             } else {
                 res.status(400).json({ error: "Password incorrect" })
             }
@@ -81,22 +81,23 @@ exports.signinWithGoogle = async (req, res) => {
         const { name, email, picture } = ticket.getPayload()
         const existingUser = await User.findOne({ email })
         if (existingUser) {
-            const { _id, name, email, role } = existingUser
+            const { _id, name, email, profilePicture, role } = existingUser
             const accessToken = await generateAccessToken({ _id, email, role })
             const refreshToken = await generateRefreshToken({ _id, email, role })
             // response token and user info
-            res.status(201).json({ accessToken, refreshToken, user: { _id, name, email, role } })
+            res.status(201).json({ accessToken, refreshToken, user: { _id, name, email, profilePicture, role } })
         } else {
             const newUser = {
                 name,
                 email,
-                profilePicture
+                profilePicture: picture,
             }
             let user = await User.create(newUser)
+            const { _id, name, email, profilePicture, role } = user
             const accessToken = await generateAccessToken({ _id, email, role })
             const refreshToken = await generateRefreshToken({ _id, email, role })
             // response token and user info
-            res.status(201).json({ accessToken, refreshToken, user: { _id, name, email, role } })
+            res.status(201).json({ accessToken, refreshToken, user: { _id, name, email, profilePicture, role } })
         }
     } catch (error) {
         res.status(400).json({ error })

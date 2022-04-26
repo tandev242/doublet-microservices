@@ -1,0 +1,27 @@
+const Size = require("../models/size");
+
+exports.addSize = (req, res) => {
+    const { size, description } = req.body;
+
+    const sizeObj = new Size({ size, description });
+
+    sizeObj.save((error, size) => {
+        if (error) return res.status(400).json({ error });
+        if (size) {
+            res.status(201).json({ size: size });
+        } else {
+            res.status(400).json({ error: "something went wrong" });
+        }
+    })
+}
+
+exports.getAllSizes = (req, res) => {
+    Size.find({}).sort({ size: 1 }).exec(async (error, sizes) => {
+        if (error) return res.status(400).json({ error });
+        if (sizes) {
+            res.status(200).json({ sizes });
+        } else {
+            res.status(400).json({ error: "something went wrong" });
+        }
+    })
+}

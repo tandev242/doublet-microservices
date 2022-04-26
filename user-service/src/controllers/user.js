@@ -33,12 +33,14 @@ exports.updateUserInfo = async (req, res) => {
   const { otp, name, password } = req.body
   const payload = { name }
   try {
-    const otpObj = await Otp.findOneAndDelete({ user: req.user._id, generatedOtp: otp })
-    if (otpObj) {
-      const hashedPassword = await bcrypt.hash(password, 10)
-      payload.password = hashedPassword
-    } else {
-      return res.status(400).json({ error: "OTP is wrong" })
+    if (password) {
+      const otpObj = await Otp.findOneAndDelete({ user: req.user._id, generatedOtp: otp })
+      if (otpObj) {
+        const hashedPassword = await bcrypt.hash(password, 10)
+        payload.password = hashedPassword
+      } else {
+        return res.status(400).json({ error: "OTP is wrong" })
+      }
     }
     if (req.file) {
       payload.profilePicture = req.file.path
