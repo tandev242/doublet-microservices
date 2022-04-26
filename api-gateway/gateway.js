@@ -4,7 +4,7 @@ const cors = require("cors")
 const app = express()
 
 // change .prod to .dev to test on local environment
-const registry = require('./utils/registry.dev.json')
+const registry = require('./utils/registry.prod.json')
 const routes = require('./routes')
 
 const PORT = process.env.PORT || 5000

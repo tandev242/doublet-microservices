@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const axios = require('axios')
-const registry = require('../utils/registry.dev.json')
+const registry = require('../utils/registry.prod.json')
 const loadBalancer = require('../utils/loadBalancer')
 const fs = require('fs')
 
