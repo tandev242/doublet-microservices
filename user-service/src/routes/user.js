@@ -10,9 +10,9 @@ router.post('/getUsers', requireSignin, adminMiddleware, getUsers)
 router.post('/update', requireSignin, adminMiddleware, updateUser)
 router.post('/updateUserInfo', requireSignin,
     userMiddleware,
+    uploadCloud.single("profilePicture"),
     validateUpdateUserInfoRequest,
     isRequestValidated,
-    uploadCloud.single("profilePicture"),
     updateUserInfo)
 router.post('/delete', requireSignin, adminMiddleware, deleteUserById)
 
