@@ -7,7 +7,8 @@ exports.getRecommendedProductsById = async (req, res) => {
     res.status(400).json({ error: "Id is required" })
   }
   try {
-    const ids = await getIdsOfRecommendedProducts(id)
+    const ids = await getIdsOfRecommendedProducts(id, "product")
+    console.log(ids)
     let urlProductService = `http://${process.env.PRODUCT_SERVICE_HOST}/api/product/getListProductByIds`
     let finalResponse = await axios.post(urlProductService, { ids })
     if (finalResponse) {
